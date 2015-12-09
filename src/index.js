@@ -4,15 +4,19 @@ var api = {
   remodelPorts: function (portGraph) {
     var i = 0
     var g = new Graph({ directed: true, compound: true, multigraph: true })
-    g.setNode('MAIN')
+
+    var parentNode
+    for (let node of portGraph.nodes()) {
+      if (node.parent == null) {
+        parentNode = node
+      }
+    }
 
     for (let node of portGraph.nodes()) {
-      if (node === 'MAIN') {
-        // the parent node is by deafult named MAIN
-        continue
+      if (node !== parentNode) {
+        g.setNode(node, portGraph.node(node))
+        g.setParent(node, parentNode)
       }
-      g.setNode(node, portGraph.node(node))
-      g.setParent(node, 'MAIN')
     }
 
     for (let edge of portGraph.edges()) {
