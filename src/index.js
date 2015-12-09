@@ -1,52 +1,51 @@
 import {Graph} from 'graphlib'
+import {_} from 'lodash'
 
 var api = {
   remodelPorts: function (portGraph) {
-    var i = 0
-    var g = new Graph({ directed: true, compound: true, multigraph: true })
-
-    var parentNode
+    var parents = [ ]
+    var g = new Graph({ directed: true, compound: true, multigraph: false })
+    // iterate over the edges of the port graph. all port information is stored in these edges
     for (let node of portGraph.nodes()) {
-      if (node.parent == null) {
-        parentNode = node
-      }
-    }
-
-    for (let node of portGraph.nodes()) {
-      if (node !== parentNode) {
-        g.setNode(node, portGraph.node(node))
+      g.setNode(node, portGraph.node(node))
+      var parentNode = portGraph.node(node).parent
+      // if needed, creates the parent node and creates the parent relation
+      // also adds the parent node to an array of parent nodes for further usage
+      if (parentNode !== null) {
+        if (!g.hasNode(parentNode)) {
+          g.setNode(parentNode, portGraph.node(parentNode))
+        }
         g.setParent(node, parentNode)
+        parents.push(parentNode)
       }
     }
+    parents = _.unique(parents)
 
     for (let edge of portGraph.edges()) {
-      // console.log(edge)
-      var value = portGraph.edge(edge)
-      var outPortName = edge.v + '_OUTPORT_' + value.outPort
-      var inPortName = edge.w + '_INPORT_' + value.inPort
-
-      // if needed, add the in-port node, connect in-port node to process node
+      var label = portGraph.edge(edge)
+      var outPortName = edge.v + '_PORT_' + label.outPort
+      var inPortName = edge.w + '_PORT_' + label.inPort
+      // if needed, add the in-port node
       if (!g.hasNode(inPortName)) {
-        g.setNode(inPortName, { nodeType: 'inPort', portName: value.inPort })
-        g.setParent(inPortName, 'MAIN')
+        g.setNode(inPortName, { nodeType: 'inPort', portName: label.inPort })
+        g.setParent(inPortName, portGraph.node(edge.w).parent)
       }
-      g.setEdge(inPortName, edge.w, i++)
-
-      // if needed, add the out-port node, connect process node to out-port node
+      // if needed, add the out-port node
       if (!g.hasNode(outPortName)) {
-        g.setNode(outPortName, { nodeType: 'outPort', portName: value.outPort })
-        g.setParent(outPortName, 'MAIN')
+        g.setNode(outPortName, { nodeType: 'outPort', portName: label.outPort })
+        g.setParent(outPortName, portGraph.node(edge.v).parent)
       }
-      g.setEdge(edge.v, outPortName, i++)
-
-      // connect the correct ports
-      g.setEdge(outPortName, inPortName, i++)
-    }
-    console.log(g.nodes())
-    console.log('--------------')
-    // console.log(g.edges())
-    for (let edge of g.edges()) {
-      console.log(edge)
+      // connect the ports to it's corresponding process nodes
+      // hierarchy information still exists, but it is not used anymore
+      // That means: No edges from or to a node that is a parent of another node
+      if (!_.contains(parents, edge.w)) {
+        g.setEdge(inPortName, edge.w)
+      }
+      if (!_.contains(parents, edge.v)) {
+        g.setEdge(edge.v, outPortName)
+      }
+      // connect the two ports from this edge
+      g.setEdge(outPortName, inPortName)
     }
     return g
   }

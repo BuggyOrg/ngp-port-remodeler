@@ -1,5 +1,7 @@
 /* global describe, it */
 import {Graph} from 'graphlib'
+var fs = require('fs')
+var graphlib = require('graphlib')
 
 var api = require('../src/index.js')
 var expect = require('chai').expect
@@ -26,12 +28,12 @@ describe('NPG Port Remodeler', function () {
     portGraph.setEdge('1_INC', '3_ADD', { outPort: 'i', inPort: 's1' })
     portGraph.setEdge('4_CONST1', '3_ADD', { outPort: 'const1', inPort: 's2' })
     portGraph.setEdge('3_ADD', '1_INC', { outPort: 'sum', inPort: 'inc' })
-    // remodeled port graph
-    var remodeledGraph = new Graph({ directed: true, compound: true, multigraph: true })
-    remodeledGraph
+
     var g = api.remodelPorts(portGraph)
-    g
-    // expect(g).to.deep.equal(remodeledGraph)
-    expect(true).to.equal(false)
+    // fs.writeFileSync('test/fixtures/testgraph.graphlib', JSON.stringify(graphlib.json.write(g), null, 2))
+    var curGraph = graphlib.json.write(g)
+    var cmpGraph = JSON.parse(fs.readFileSync('test/fixtures/testgraph.graphlib'))
+
+    expect(curGraph).to.deep.equal(cmpGraph)
   })
 })

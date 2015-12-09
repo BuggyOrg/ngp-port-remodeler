@@ -18,7 +18,8 @@
   "homepage": "https://github.com/BuggyOrg/npg-port-remodeler#readme",
   "dependencies": {
     "component-library": "git://github.com/buggyorg/component-library",
-    "graphlib": "^2.0.0"
+    "graphlib": "^2.0.0",
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
     "babel": "^5.8.29",
