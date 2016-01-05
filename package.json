@@ -1,9 +1,11 @@
 {
   "name": "npg-port-remodeler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "takes a portgraph (e.g. from math2graph) and remodels the port information by creating a node for each port and connecting them accordingly.",
   "main": "index.js",
-  "bin": {"npg2pg":"lib/cli.js"},
+  "bin": {
+    "npg2pg": "lib/cli.js"
+  },
   "scripts": {
     "test": "node node_modules/standard/bin/cmd.js src/**/*.js && gulp && node_modules/mocha/bin/mocha --compilers js:babel/register"
   },
