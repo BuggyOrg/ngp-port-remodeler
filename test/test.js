@@ -9,6 +9,7 @@ var expect = require('chai').expect
 describe('NPG Port Remodeler', function () {
   it('port remodel test', function () {
     // old port graph
+    /*
     var portGraph = new Graph({ directed: true, compound: true, multigraph: true })
     portGraph.setNode('EXAMPLE1', { parent: null })
     portGraph.setNode('0_STDIN', { nodeType: 'process', meta: 'io/stdin', type: 'atomic', parent: 'EXAMPLE1' })
@@ -28,9 +29,12 @@ describe('NPG Port Remodeler', function () {
     portGraph.setEdge('1_INC', '3_ADD', { outPort: 'i', inPort: 's1' })
     portGraph.setEdge('4_CONST1', '3_ADD', { outPort: 'const1', inPort: 's2' })
     portGraph.setEdge('3_ADD', '1_INC', { outPort: 'sum', inPort: 'inc' })
+    fs.writeFileSync('test/fixtures/portGraph.graphlib', JSON.stringify(graphlib.json.write(portGraph), null, 2))*/
+    
+    var portGraph = graphlib.json.read(JSON.parse(fs.readFileSync('test/fixtures/portGraph.graphlib')))
 
     var g = api.remodelPorts(portGraph)
-    // fs.writeFileSync('test/fixtures/testgraph.graphlib', JSON.stringify(graphlib.json.write(g), null, 2))
+    //fs.writeFileSync('test/fixtures/testgraph.graphlib', JSON.stringify(graphlib.json.write(g), null, 2))
     var curGraph = graphlib.json.write(g)
     var cmpGraph = JSON.parse(fs.readFileSync('test/fixtures/testgraph.graphlib'))
 

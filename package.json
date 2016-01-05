@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "takes a portgraph (e.g. from math2graph) and remodels the port information by creating a node for each port and connecting them accordingly.",
   "main": "index.js",
+  "bin": {"npg2pg":"lib/cli.js"},
   "scripts": {
     "test": "node node_modules/standard/bin/cmd.js src/**/*.js && gulp && node_modules/mocha/bin/mocha --compilers js:babel/register"
   },
@@ -17,8 +18,11 @@
   },
   "homepage": "https://github.com/BuggyOrg/npg-port-remodeler#readme",
   "dependencies": {
+    "commander": "^2.9.0",
     "component-library": "git://github.com/buggyorg/component-library",
+    "get-stdin": "^5.0.1",
     "graphlib": "^2.0.0",
+    "graphlib-dot": "^0.6.2",
     "lodash": "^3.10.1"
   },
   "devDependencies": {

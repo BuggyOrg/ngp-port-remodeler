@@ -7,9 +7,10 @@
   "nodes": [
     {
       "v": "EXAMPLE1",
-      "value": {
-        "parent": null
-      }
+      "value": {}
+    },
+    {
+      "v": "undefined"
     },
     {
       "v": "0_STDIN",
