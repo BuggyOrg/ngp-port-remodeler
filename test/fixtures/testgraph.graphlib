@@ -10,9 +10,6 @@
       "value": {}
     },
     {
-      "v": "undefined"
-    },
-    {
       "v": "0_STDIN",
       "value": {
         "nodeType": "process",

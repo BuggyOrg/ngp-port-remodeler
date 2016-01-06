@@ -11,7 +11,7 @@ var api = {
       var parentNode = portGraph.node(node).parent
       // if needed, creates the parent node and creates the parent relation
       // also adds the parent node to an array of parent nodes for further usage
-      if (parentNode !== null) {
+      if (parentNode) {
         if (!g.hasNode(parentNode)) {
           g.setNode(parentNode, portGraph.node(parentNode))
         }
