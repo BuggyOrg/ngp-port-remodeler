@@ -1,5 +1,4 @@
 /* global describe, it */
-import {Graph} from 'graphlib'
 var fs = require('fs')
 var graphlib = require('graphlib')
 
@@ -34,7 +33,7 @@ describe('NPG Port Remodeler', function () {
     var portGraph = graphlib.json.read(JSON.parse(fs.readFileSync('test/fixtures/portGraph.graphlib')))
 
     var g = api.remodelPorts(portGraph)
-    //fs.writeFileSync('test/fixtures/testgraph.graphlib', JSON.stringify(graphlib.json.write(g), null, 2))
+    // fs.writeFileSync('test/fixtures/testgraph.graphlib', JSON.stringify(graphlib.json.write(g), null, 2))
     var curGraph = graphlib.json.write(g)
     var cmpGraph = JSON.parse(fs.readFileSync('test/fixtures/testgraph.graphlib'))
 
