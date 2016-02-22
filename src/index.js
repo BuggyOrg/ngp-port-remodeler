@@ -5,7 +5,7 @@ var api = {
   remodelPorts: function (portGraph) {
     var parents = [ ]
     var g = new Graph({ directed: true, compound: true, multigraph: false })
-    // iterate over the edges of the port graph. all port information is stored in these edges
+
     for (let node of portGraph.nodes()) {
       g.setNode(node, portGraph.node(node))
       var parentNode = portGraph.node(node).parent
