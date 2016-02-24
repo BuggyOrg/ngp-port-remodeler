@@ -7,7 +7,9 @@
   "nodes": [
     {
       "v": "EXAMPLE1",
-      "value": {}
+      "value": {
+        "nodeType": "process"
+      }
     },
     {
       "v": "0_STDIN",

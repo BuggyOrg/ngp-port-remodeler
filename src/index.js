@@ -7,8 +7,10 @@ var api = {
     var g = new Graph({ directed: true, compound: true, multigraph: false })
 
     for (let node of portGraph.nodes()) {
-      g.setNode(node, portGraph.node(node))
-      var parentNode = portGraph.node(node).parent
+      let lbl = portGraph.node(node)
+      lbl.nodeType = 'process'
+      g.setNode(node, lbl)
+      var parentNode = portGraph.parent(node)
       // if needed, creates the parent node and creates the parent relation
       // also adds the parent node to an array of parent nodes for further usage
       if (parentNode) {
