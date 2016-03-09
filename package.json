@@ -21,7 +21,7 @@
   "homepage": "https://github.com/BuggyOrg/npg-port-remodeler#readme",
   "dependencies": {
     "commander": "^2.9.0",
-    "component-library": "git://github.com/buggyorg/component-library",
+    "@buggyorg/component-library": "^0.3.2",
     "get-stdin": "^5.0.1",
     "graphlib": "^2.0.0",
     "graphlib-dot": "^0.6.2",
