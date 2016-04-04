@@ -30,17 +30,17 @@ var api = {
 
       // if needed, add the in-port node
       if (!g.hasNode(inPortName)) {
-        g.setNode(inPortName, { nodeType: 'inPort', portName: label.inPort })
+        g.setNode(inPortName, { nodeType: 'inPort', portName: label.inPort, process: edge.w })
         g.setParent(inPortName, portGraph.node(edge.w).parent)
       } else {
-        g.setNode(inPortName, { nodeType: 'outPort', portName: label.inPort, hierarchyBorder: true })
+        g.setNode(inPortName, { nodeType: 'outPort', portName: label.inPort, hierarchyBorder: true, process: edge.w })
       }
       // if needed, add the out-port node
       if (!g.hasNode(outPortName)) {
-        g.setNode(outPortName, { nodeType: 'outPort', portName: label.outPort })
+        g.setNode(outPortName, { nodeType: 'outPort', portName: label.outPort, process: edge.v })
         g.setParent(outPortName, portGraph.node(edge.v).parent)
       } else {
-        g.setNode(outPortName, { nodeType: 'inPort', portName: label.outPort, hierarchyBorder: true })
+        g.setNode(outPortName, { nodeType: 'inPort', portName: label.outPort, hierarchyBorder: true, process: edge.v })
       }
       // connect the ports to it's corresponding process nodes
       // hierarchy information still exists, but it is not used anymore
