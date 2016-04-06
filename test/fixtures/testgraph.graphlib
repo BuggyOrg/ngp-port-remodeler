@@ -66,7 +66,8 @@
       "value": {
         "nodeType": "inPort",
         "portName": "i",
-        "hierarchyBorder": true
+        "hierarchyBorder": true,
+        "process": "1_INC"
       },
       "parent": "EXAMPLE1"
     },
@@ -74,7 +75,8 @@
       "v": "0_STDIN_PORT_output",
       "value": {
         "nodeType": "outPort",
-        "portName": "output"
+        "portName": "output",
+        "process": "0_STDIN"
       },
       "parent": "EXAMPLE1"
     },
@@ -82,7 +84,8 @@
       "v": "2_STDOUT_PORT_input",
       "value": {
         "nodeType": "inPort",
-        "portName": "input"
+        "portName": "input",
+        "process": "2_STDOUT"
       },
       "parent": "EXAMPLE1"
     },
@@ -91,7 +94,8 @@
       "value": {
         "nodeType": "outPort",
         "portName": "inc",
-        "hierarchyBorder": true
+        "hierarchyBorder": true,
+        "process": "1_INC"
       },
       "parent": "EXAMPLE1"
     },
@@ -99,7 +103,8 @@
       "v": "3_ADD_PORT_s1",
       "value": {
         "nodeType": "inPort",
-        "portName": "s1"
+        "portName": "s1",
+        "process": "3_ADD"
       },
       "parent": "1_INC"
     },
@@ -107,7 +112,8 @@
       "v": "3_ADD_PORT_s2",
       "value": {
         "nodeType": "inPort",
-        "portName": "s2"
+        "portName": "s2",
+        "process": "3_ADD"
       },
       "parent": "1_INC"
     },
@@ -115,7 +121,8 @@
       "v": "4_CONST1_PORT_const1",
       "value": {
         "nodeType": "outPort",
-        "portName": "const1"
+        "portName": "const1",
+        "process": "4_CONST1"
       },
       "parent": "1_INC"
     },
@@ -123,7 +130,8 @@
       "v": "3_ADD_PORT_sum",
       "value": {
         "nodeType": "outPort",
-        "portName": "sum"
+        "portName": "sum",
+        "process": "3_ADD"
       },
       "parent": "1_INC"
     }

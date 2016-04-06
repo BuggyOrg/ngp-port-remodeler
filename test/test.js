@@ -37,6 +37,6 @@ describe('NPG Port Remodeler', function () {
     var curGraph = graphlib.json.write(g)
     var cmpGraph = JSON.parse(fs.readFileSync('test/fixtures/testgraph.graphlib'))
 
-    //expect(curGraph).to.deep.equal(cmpGraph)
+    expect(curGraph).to.deep.equal(cmpGraph)
   })
 })
