@@ -39,4 +39,11 @@ describe('NPG Port Remodeler', function () {
 
     expect(curGraph).to.deep.equal(cmpGraph)
   })
+
+  it('assigns the correct parents', () => {
+    var facGraph = graphlib.json.read(JSON.parse(fs.readFileSync('test/fixtures/real_fac_dup.json')))
+    
+    var g = api.remodelPorts(facGraph)
+    expect(g.parent('fac:choose_DUPLICATE_0_1_PORT_d2')).to.equal('fac')
+  })
 })

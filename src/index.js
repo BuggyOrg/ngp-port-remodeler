@@ -1,6 +1,16 @@
 import {Graph} from 'graphlib'
 import {_} from 'lodash'
 
+var parent = function (graph, outP, inP) {
+  if (graph.parent(outP) === graph.parent(inP)) {
+    return graph.parent(outP)
+  } else if (graph.parent(outP) === inP) {
+    return inP
+  } else {
+    return outP
+  }
+}
+
 var api = {
   remodelPorts: function (portGraph) {
     var parents = [ ]
@@ -31,14 +41,14 @@ var api = {
       // if needed, add the in-port node
       if (!g.hasNode(inPortName)) {
         g.setNode(inPortName, { nodeType: 'inPort', portName: label.inPort, process: edge.w })
-        g.setParent(inPortName, portGraph.node(edge.w).parent)
+        g.setParent(inPortName, parent(portGraph, edge.w, edge.v))
       } else {
         g.setNode(inPortName, { nodeType: 'outPort', portName: label.inPort, hierarchyBorder: true, process: edge.w })
       }
       // if needed, add the out-port node
       if (!g.hasNode(outPortName)) {
         g.setNode(outPortName, { nodeType: 'outPort', portName: label.outPort, process: edge.v })
-        g.setParent(outPortName, portGraph.node(edge.v).parent)
+        g.setParent(outPortName, parent(portGraph, edge.w, edge.v))
       } else {
         g.setNode(outPortName, { nodeType: 'inPort', portName: label.outPort, hierarchyBorder: true, process: edge.v })
       }
