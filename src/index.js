@@ -39,14 +39,14 @@ var api = {
       var inPortName = edge.w + '_PORT_' + label.inPort
 
       // if needed, add the in-port node
-      if (!g.hasNode(inPortName)) {
+      if (portGraph.parent(edge.v) !== edge.w) {
         g.setNode(inPortName, { nodeType: 'inPort', portName: label.inPort, process: edge.w })
         g.setParent(inPortName, parent(portGraph, edge.w, edge.v))
       } else {
         g.setNode(inPortName, { nodeType: 'outPort', portName: label.inPort, hierarchyBorder: true, process: edge.w })
       }
       // if needed, add the out-port node
-      if (!g.hasNode(outPortName)) {
+      if (portGraph.parent(edge.w) !== edge.v) {
         g.setNode(outPortName, { nodeType: 'outPort', portName: label.outPort, process: edge.v })
         g.setParent(outPortName, parent(portGraph, edge.w, edge.v))
       } else {
