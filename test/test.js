@@ -27,8 +27,9 @@ describe('NPG Port Remodeler', function () {
 
   it('can handle lambda functions', () => {
     var lambdaGraph = graphlib.json.read(JSON.parse(fs.readFileSync('test/fixtures/lambda.json')))
-    
+
     var g = api.remodelPorts(lambdaGraph)
     expect(g.node('inc_lambda_PORT_i').hierarchyBorder).to.be.true
+    expect(g.node('inc_lambda_PORT_i').nodeType).to.equal('inPort')
   })
 })
