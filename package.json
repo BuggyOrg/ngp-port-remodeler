@@ -7,7 +7,8 @@
     "npg2pg": "lib/cli.js"
   },
   "scripts": {
-    "test": "node node_modules/standard/bin/cmd.js src/**/*.js && gulp && node_modules/mocha/bin/mocha --compilers js:babel/register"
+    "test": "standard src/**/*.js && mocha --compilers js:babel/register",
+    "build": "gulp"
   },
   "repository": {
     "type": "git",
