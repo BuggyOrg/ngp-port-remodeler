@@ -1,5 +1,5 @@
 import {Graph} from 'graphlib'
-import {_} from 'lodash'
+import _ from 'lodash'
 
 var parent = function (graph, outP, inP) {
   if (graph.parent(outP) === graph.parent(inP)) {
@@ -14,7 +14,7 @@ var parent = function (graph, outP, inP) {
 var api = {
   remodelPorts: function (portGraph) {
     var parents = [ ]
-    var g = new Graph({ directed: true, compound: true, multigraph: false })
+    var g = new Graph({ directed: true, compound: true, multigraph: true })
 
     for (let node of portGraph.nodes()) {
       let lbl = portGraph.node(node)
@@ -33,7 +33,7 @@ var api = {
     }
     parents = _.unique(parents)
 
-    for (let edge of portGraph.edges()) {
+    for (let edge of _.reject(portGraph.edges(), (e) => portGraph.edge(e) && portGraph.edge(e).continuation)) {
       var label = portGraph.edge(edge)
       var outPortName = edge.v + '_PORT_' + label.outPort
       var inPortName = edge.w + '_PORT_' + label.inPort
@@ -63,6 +63,9 @@ var api = {
       }
       // connect the two ports from this edge
       g.setEdge(outPortName, inPortName)
+    }
+    for (let edge of _.filter(portGraph.edges(), (e) => portGraph.edge(e) && portGraph.edge(e).continuation)) {
+      g.setEdge(edge, portGraph.edge(edge))
     }
     return g
   }

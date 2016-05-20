@@ -1,4 +1,5 @@
 /* global describe, it */
+import _ from 'lodash'
 var fs = require('fs')
 var graphlib = require('graphlib')
 
@@ -20,7 +21,6 @@ describe('NPG Port Remodeler', function () {
 */
   it('assigns the correct parents', () => {
     var facGraph = graphlib.json.read(JSON.parse(fs.readFileSync('test/fixtures/real_fac_dup.json')))
-    
     var g = api.remodelPorts(facGraph)
     expect(g.parent('fac:choose_DUPLICATE_0_1_PORT_d2')).to.equal('fac')
   })
@@ -31,5 +31,12 @@ describe('NPG Port Remodeler', function () {
     var g = api.remodelPorts(lambdaGraph)
     expect(g.node('inc_lambda_PORT_i').hierarchyBorder).to.be.true
     expect(g.node('inc_lambda_PORT_i').nodeType).to.equal('inPort')
+  })
+
+  it('can handle continuations', () => {
+    var muxFac = graphlib.json.read(JSON.parse(fs.readFileSync('test/fixtures/factorial_mux.json')))
+    var newFac = api.remodelPorts(muxFac)
+    expect(newFac).to.be.ok
+    expect(_.filter(newFac.edges(), (e) => newFac.edge(e) && newFac.edge(e).continuation)).to.have.length(1)
   })
 })
