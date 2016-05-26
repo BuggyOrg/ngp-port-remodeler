@@ -60,7 +60,7 @@ var api = {
       if (!_.contains(parents, edge.w)) {
         g.setEdge(inPortName, edge.w)
       }
-      if (!_.contains(parents, edge.v)) {
+      if (!_.contains(parents, edge.v) || portGraph.node(edge.v).id === 'functional/lambda') {
         g.setEdge(edge.v, outPortName)
       }
       // connect the two ports from this edge
