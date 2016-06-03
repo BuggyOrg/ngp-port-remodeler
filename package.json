@@ -1,6 +1,6 @@
 {
   "name": "@buggyorg/npg-port-remodeler",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "takes a portgraph (e.g. from math2graph) and remodels the port information by creating a node for each port and connecting them accordingly.",
   "main": "lib/index.js",
   "bin": {
