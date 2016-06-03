@@ -40,17 +40,21 @@ var api = {
 
       // if needed, add the in-port node
       if (portGraph.parent(edge.v) !== edge.w) {
-        let type = portGraph.node(edge.w).inputPorts[label.inPort]
-        g.setNode(inPortName, { nodeType: 'inPort', portName: label.inPort, process: edge.w, type: type })
-        g.setParent(inPortName, parent(portGraph, edge.w, edge.v))
+        if (!g.hasNode(inPortName)) {
+          let type = portGraph.node(edge.w).inputPorts[label.inPort]
+          g.setNode(inPortName, { nodeType: 'inPort', portName: label.inPort, process: edge.w, type: type })
+          g.setParent(inPortName, parent(portGraph, edge.w, edge.v))
+        }
       } else {
         g.setNode(inPortName, { nodeType: 'outPort', portName: label.inPort, hierarchyBorder: true, process: edge.w })
       }
       // if needed, add the out-port node
       if (portGraph.parent(edge.w) !== edge.v) {
-        let type = portGraph.node(edge.w).inputPorts[label.inPort]
-        g.setNode(outPortName, { nodeType: 'outPort', portName: label.outPort, process: edge.v, type: type })
-        g.setParent(outPortName, parent(portGraph, edge.w, edge.v))
+        if (!g.hasNode(outPortName)) {
+          let type = portGraph.node(edge.w).inputPorts[label.inPort]
+          g.setNode(outPortName, { nodeType: 'outPort', portName: label.outPort, process: edge.v, type: type })
+          g.setParent(outPortName, parent(portGraph, edge.w, edge.v))
+        }
       } else {
         g.setNode(outPortName, { nodeType: 'inPort', portName: label.outPort, hierarchyBorder: true, process: edge.v })
       }
